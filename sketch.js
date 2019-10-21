@@ -1,7 +1,5 @@
 var totalCities = 200;
 var cityRadius = 10;
-var WIDTH = 2100;
-var HEIGHT = 1100;
 var border = 50;
 
 
@@ -10,6 +8,7 @@ var cities = [];
 var path = [];
 var bestPath = [];
 var previousPath = [];
+var colors = [];
 var animation = -1;
 var dragValue = -1;
 var virtualCity;
@@ -53,6 +52,7 @@ function setup() {
         path[i] = i;
         previousPath[i] = i;
         bestPath[i] = i;
+        colors[i] = 255/4 + abs(i - totalCities/2) * 255 / totalCities;
     }
 
     bestDist = currentDist();
@@ -111,7 +111,7 @@ function draw() {
     if (animation == -1) {
         vertex(cities[path[0]].x, cities[path[0]].y)
         for (let i = 0; i < totalCities; i++) {
-            stroke(255/4 + abs(i - totalCities/2) * 255 / totalCities);
+            stroke(colors[i]);
             vertex(cities[path[i]].x, cities[path[i]].y);
             endShape();
             beginShape();
@@ -128,7 +128,7 @@ function draw() {
             vertex((60 - animation)/60 * previousVirtualCity.x + animation/60 * virtualCity.x, (60 - animation)/60 * previousVirtualCity.y + animation/60 * virtualCity.y)
         }
         for (let i = 0; i < totalCities; i++) {
-            stroke(255/4 + abs(i - totalCities/2) * 255 / totalCities);
+            stroke(colors[i]);
             if (previousPath[i] != path[i]) {
                 vertex((60 - animation)/60 * cities[previousPath[i]].x + animation/60 * cities[path[i]].x, (60 - animation)/60 * cities[previousPath[i]].y + animation/60 *cities[path[i]].y)
                 endShape();
